@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<title>Agregore Browser</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<style>
+  @import url('style.css'); 
+</style>
+
+<script src="./electron-browser-view.js"></script>
+<script src="./omni-box.js"></script>
+<script src="./find-menu.js"></script>
+
+<header id="top">
+  <find-menu id="find" class="hidden"></find-menu>
+  <omni-box id="search"></omni-box>
+</header>
+
+<browser-view tabindex="0" id="view" partition="persist:web-content"></browser-view>
+
+
+<script src="script.js"></script>
