@@ -1,6 +1,6 @@
 const { pageContextMenu } = require('./context-menus')
 
-const DEFAULT_PAGE = 'agregore://intro'
+const DEFAULT_PAGE = 'agregore://home'
 
 const webview = $('#view')
 const search = $('#search')
