@@ -1,6 +1,6 @@
 const { pageContextMenu } = require('./context-menus')
 
-const DEFAULT_PAGE = 'agregore://home'
+const DEFAULT_PAGE = 'agregore://welcome'
 
 const webview = $('#view')
 const search = $('#search')
@@ -11,6 +11,11 @@ webview.addEventListener('dom-ready', () => {
     webview.openDevTools()
   }
 })
+
+const { remote} = require('electron');
+remote.ipcMain.on('signout', (event,enable)=>{
+  
+});
 
 const pageTitle = $('title')
 
