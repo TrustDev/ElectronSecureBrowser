@@ -15,7 +15,7 @@
   "build": {
     "npmRebuild": false,
     "asar": true,
-    "productName": "Agregore Browser",
+    "productName": "Lagatos Browser",
     "appId": "agregore.mauve.moe",
     "files": [
       "build/**/*",
