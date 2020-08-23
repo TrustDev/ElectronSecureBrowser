@@ -57,7 +57,7 @@ webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 
 webview.addEventListener('page-title-updated', ({ detail }) => {
   const title = detail[1]
-  pageTitle.innerText = title + ' - Agregore Browser'
+  pageTitle.innerText = title + ' - Lagatos Browser'
 })
 
 webview.addEventListener('new-window', ({ detail }) => {
