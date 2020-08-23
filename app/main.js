@@ -59,7 +59,7 @@ async function onready () {
 
   const extensions = await registerExtensions(webSession)
 
-  const historyExtension = extensions.extensions['agregore-history']
+  const historyExtension = extensions.extensions['lagatos-history']
   history.setExtension(historyExtension)
 
   const rootURL = new URL(process.cwd(), 'file://')

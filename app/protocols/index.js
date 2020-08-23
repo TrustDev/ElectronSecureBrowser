@@ -32,7 +32,7 @@ function registerPriviledges () {
   globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
     { scheme: 'dat', privileges: P2P_PRIVILEDGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES }
+    { scheme: 'lagatos', privileges: BROWSER_PRIVILEDGES }
   ])
 }
 
@@ -41,15 +41,15 @@ async function setupProtocols (session) {
 
   app.setAsDefaultProtocolClient('hyper')
   app.setAsDefaultProtocolClient('dat')
-  app.setAsDefaultProtocolClient('agregore')
+  app.setAsDefaultProtocolClient('lagatos')
 
   const hyperProtocolHandler = await createHyperHandler()
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
   const browserProtocolHandler = await createBrowserHandler()
-  sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
-  globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
+  sessionProtocol.registerStreamProtocol('lagatos', browserProtocolHandler)
+  globalProtocol.registerStreamProtocol('lagatos', browserProtocolHandler)
 
   const datProtocolHandler = await createDatHandler()
   sessionProtocol.registerStreamProtocol('dat', datProtocolHandler)

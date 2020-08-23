@@ -72,7 +72,7 @@ async function onSetAsDefault () {
 
 async function onLearMore () {
   const { shell } = require('electron')
-  await shell.openExternal('https://github.com/RangerMauve/agregore-browser')
+  await shell.openExternal('https://bitbucket.org/lagatoshq/browser-v2')
 }
 
 function onOpenDevTools (event, focusedWindow, focusedWebContents) {
