@@ -1,8 +1,4 @@
 const { pageContextMenu } = require('./context-menus')
-<<<<<<< Updated upstream
-
-const DEFAULT_PAGE = 'agregore://home'
-=======
 const {
   connectDB,
   closeDB,
@@ -18,7 +14,6 @@ const {
   logout
 } = require('../auth')
 const DEFAULT_PAGE = 'agregore://welcome'
->>>>>>> Stashed changes
 
 const webview = $('#view')
 const search = $('#search')
@@ -29,13 +24,10 @@ webview.addEventListener('dom-ready', () => {
     webview.openDevTools()
   }
 })
-<<<<<<< Updated upstream
-=======
 const { remote} = require('electron');
 remote.ipcMain.on('signout', (event,enable)=>{
     // when user signout
 });
->>>>>>> Stashed changes
 
 const pageTitle = $('title')
 
