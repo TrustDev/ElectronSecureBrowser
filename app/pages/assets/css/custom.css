@@ -13,11 +13,14 @@ body, html {
     width: 100%;
     height: 100%;
     flex-direction: column;
-justify-content: center;
-align-items: center;
-background: var(--ag-color-black);
-color: var(--ag-color-white);
-font-family: system-ui;
+    justify-content: center;
+    align-items: center;
+    background: var(--ag-color-black);
+    color: var(--ag-color-white);
+    font-family: system-ui;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 h1 {

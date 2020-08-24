@@ -4,7 +4,6 @@
   const auth = remote.require('./auth')
   const {ipcRenderer} = nodeRequire('electron');
   ipcRenderer.on('ping', () => {
-    ipcRenderer.sendToHost('pong')
   })
   function startIntro(){
     
@@ -31,7 +30,6 @@
   }
 
   async function signout() {
-    ipcRenderer.send('signout', true);
     const isSigned = await auth.isAuthenticated();
     if (isSigned)
     {
