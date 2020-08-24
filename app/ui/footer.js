@@ -24,7 +24,7 @@ class Footer extends HTMLElement {
     const { isAuthenticated } = require('../auth')
     const res = await isAuthenticated();
     if (res == true) {
-      this.setSignedIn();
+      this.setLeadSignedIn();
     }
     else {
       this.setSignedOut();
@@ -90,7 +90,7 @@ class Footer extends HTMLElement {
           await verifyOtp(this.email, code);
           if (await isAuthenticated() == true)
           {
-            this.setSignedIn();
+            this.setLeadSignedIn();
           } else {
             console.log("Code Input Error");
           }
@@ -102,7 +102,7 @@ class Footer extends HTMLElement {
 
   }
 
-  setSignedIn() {
+  setLeadSignedIn() {
     this.step="signed";
     this.innerHTML = `
       <div class="footer row">
@@ -119,9 +119,22 @@ class Footer extends HTMLElement {
     `
   }
 
-  setPromote() {
+  setUserPastDue() {
     this.innerHTML = `
       <div class="footer row">
+          <div class="col-sm-5">
+              <div>We haven't received this month's payment, you won't earn until you do.</div>
+          </div>
+          <div class="col-sm-4">
+            <p id="alert-earning">You are missing out on $1.005 in earnings.</p>
+          </div>
+      </div>
+    `
+  }
+
+  setNetPromoterScore() {
+    this.innerHTML = `
+      <div class="footer">
         <div class="col-sm-4">
             <div>How likely would you recommend us to your friend?</div>
         </div>

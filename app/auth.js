@@ -38,7 +38,7 @@ async function verifyOtp(email, otp) {
             realm: 'email',
             grant_type: 'http://auth0.com/oauth/grant-type/passwordless/otp',
             username: email,
-            scope: 'openid profile email offline_access',
+            scope: 'openid offline_access',
             otp
         })
     });

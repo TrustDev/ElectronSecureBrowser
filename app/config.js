@@ -1,4 +1,4 @@
-module.exports = require('rc')('agregore', {
+module.exports = require('rc')('lagatos', {
   accelerators: {
     OpenDevTools: 'CommandOrControl+Shift+I',
     NewWindow: 'CommandOrControl+N',

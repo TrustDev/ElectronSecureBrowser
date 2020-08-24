@@ -23,7 +23,8 @@ function createWindow (url, options = {}) {
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
-      webviewTag: false
+      webviewTag: false,
+      enableRemoteModule: true
     },
     icon: LOGO_FILE,
     show: false,

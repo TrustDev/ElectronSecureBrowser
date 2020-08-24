@@ -183,11 +183,11 @@ class BrowserViewElement extends HTMLElement {
     const { BrowserView } = remote
     this.view = new BrowserView({
       webPreferences: {
+        nodeIntegration: true,
         sandbox: false,
         safeDialogs: true,
         navigateOnDragDrop: true,
         enableRemoteModule: true,
-        nodeIntegration: true,
         partition: this.getAttribute('partition')
       }
     })

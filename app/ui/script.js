@@ -29,6 +29,11 @@ remote.ipcMain.on('signout', (event,enable)=>{
     // when user signout
 });
 
+const { remote} = require('electron');
+remote.ipcMain.on('signout', (event,enable)=>{
+  
+});
+
 const pageTitle = $('title')
 
 const searchParams = new URL(window.location.href).searchParams
@@ -68,7 +73,7 @@ webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 
 webview.addEventListener('page-title-updated', async ({ detail }) => {
   const title = detail[1]
-  pageTitle.innerText = title + ' - Agregore Browser'
+  pageTitle.innerText = title + ' - Lagatos Browser'
   var userEmail = "Guest";
   var userIp = "";
   var namespace = 'https://lagatosbrowser/';

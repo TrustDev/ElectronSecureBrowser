@@ -10,7 +10,7 @@ module.exports = {
 async function registerExtensions (session) {
   const extensions = new ExtensibleSession({
     partition: 'persist:web-content',
-    blacklist: ['agregore-browser://*/*']
+    blacklist: ['lagatos-browser://*/*']
   })
 
   const rawNames = await fs.readdir(__dirname)
