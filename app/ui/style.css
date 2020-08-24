@@ -14,6 +14,7 @@ html, body {
 	flex: 1;
 	flex-direction: column;
 	background: var(--ag-color-white);
+	color: var(--ag-color-white);
 	font-family: system-ui;
 }
 
@@ -112,8 +113,6 @@ find-menu {
 *:focus {
   outline: 2px solid var(--ag-color-green);
 }
-<<<<<<< Updated upstream
-=======
 
 .footer {
 	width: 100%;
@@ -130,4 +129,3 @@ find-menu {
 #survicate-box .sv__survey{
 	bottom: 5px !important;
 }
->>>>>>> Stashed changes
