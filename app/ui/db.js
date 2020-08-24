@@ -1,10 +1,13 @@
 
 
 const { MongoClient } = require('mongodb');
+const { getEnvVar } = require('./../env');
 let db = null;
 async function connectDB() {
-    const uri = "mongodb://localhost:27017";
-    const client = new MongoClient(uri);
+    const uri = getEnvVar("MONGODB_URL");
+    const client = new MongoClient(uri, {
+        useNewUrlParser: true
+      });
   
     try {
         // Connect to the MongoDB cluster
