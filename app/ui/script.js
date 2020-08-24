@@ -13,7 +13,7 @@ const {
   getTokenSilently,
   logout
 } = require('../auth')
-const DEFAULT_PAGE = 'agregore://welcome'
+const DEFAULT_PAGE = 'lagatos://welcome'
 
 const webview = $('#view')
 const search = $('#search')
@@ -27,11 +27,6 @@ webview.addEventListener('dom-ready', () => {
 const { remote} = require('electron');
 remote.ipcMain.on('signout', (event,enable)=>{
     // when user signout
-});
-
-const { remote} = require('electron');
-remote.ipcMain.on('signout', (event,enable)=>{
-  
 });
 
 const pageTitle = $('title')
