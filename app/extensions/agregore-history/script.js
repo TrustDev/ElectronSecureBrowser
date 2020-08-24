@@ -8,7 +8,6 @@ const HISTORY_VERSION = 1
 
 const HISTORY_STORE = 'navigated'
 const MAX_RESULTS = 8
-
 main()
 
 async function main () {
@@ -65,7 +64,6 @@ async function main () {
     }
 
     console.log('Navigation event', historyItem)
-
     await db.add(HISTORY_STORE, historyItem)
   }
 }

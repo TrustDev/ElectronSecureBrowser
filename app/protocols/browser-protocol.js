@@ -16,7 +16,6 @@ const CHECK_PATHS = [
 module.exports = async function createHandler () {
   return async function protocolHandler (req, sendResponse) {
     const { url } = req
-
     const parsed = new URL(url)
     const { pathname, hostname } = parsed
     const toResolve = path.join(hostname, pathname)

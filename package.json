@@ -105,6 +105,12 @@
     "fs-extra": "^9.0.1",
     "ipfs": "^0.46.1",
     "mime": "^2.4.6",
+<<<<<<< Updated upstream
+=======
+    "mongodb": "^3.6.0",
+    "ms": "^2.1.2",
+    "node-fetch": "^2.6.0",
+>>>>>>> Stashed changes
     "rc": "^1.2.8",
     "scoped-fs": "^1.4.1"
   }

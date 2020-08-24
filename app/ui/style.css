@@ -112,3 +112,22 @@ find-menu {
 *:focus {
   outline: 2px solid var(--ag-color-green);
 }
+<<<<<<< Updated upstream
+=======
+
+.footer {
+	width: 100%;
+    margin: 0;
+    padding: 10px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    background: brown;
+}
+.signin label{
+	font-size: 18px;
+}
+
+#survicate-box .sv__survey{
+	bottom: 5px !important;
+}
+>>>>>>> Stashed changes

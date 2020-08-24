@@ -29,7 +29,7 @@ async function registerExtensions (session) {
   for (const folder of extensionFolders) {
     try {
       const extension = await extensions.loadExtension(path.join(__dirname, folder))
-      console.log('Loaded extension', extension)
+      console.log('Loaded extension', extension.backgroundPage.webContents._events)
 
       if (process.env.MODE === 'debug') {
         if (extension.backgroundPage) extension.backgroundPage.webContents.openDevTools()
