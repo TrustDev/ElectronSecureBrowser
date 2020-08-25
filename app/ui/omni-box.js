@@ -9,10 +9,16 @@ class OmniBox extends HTMLElement {
 
     this.history = remote.require('./history')
     this.lastSearch = 0
+    this.lastTab = 1;
   }
 
   connectedCallback () {
     this.innerHTML = `
+      <div class="etabs-tabgroup visible">
+        <div class="etabs-tabs">
+        </div>
+        <div class="etabs-buttons"><button class="etabs-tab-button-new">＋</button></div>          
+      </div>
       <section class="omni-box-header">
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
         <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
@@ -28,6 +34,26 @@ class OmniBox extends HTMLElement {
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
     this.options = this.$('.omni-box-nav-options')
+    this.newtabButton = this.$('.etabs-tab-button-new');
+
+    window.addEventListener('load', (event) => {
+      console.log('page is fully loaded');            
+      const { ipcRenderer } = nodeRequire('electron');
+      this.initTab();
+
+      $(".etabs-tabs").on('click', '.etabs-tab', (e) => {
+        $(".etabs-tab.active").removeClass("active");
+        let target = e.currentTarget;      
+        $(target).addClass("active");
+        let tabId = $(target).attr("tab-id");
+        console.log(tabId);
+        ipcRenderer.send('switchtab', { tabId: tabId })        
+      })
+
+    });
+    this.newtabButton.addEventListener('click', () => {
+      this.addNewTab();
+    })    
 
     this.input.addEventListener('focus', () => {
       this.input.select()
@@ -69,6 +95,25 @@ class OmniBox extends HTMLElement {
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
     })
+  }
+
+  initTab() {
+    this.addNewTab();
+  }
+  
+  addNewTab() {          
+    const { ipcRenderer } = nodeRequire('electron');      
+    ipcRenderer.send('newtab', { tabId: this.lastTab })
+    $(".etabs-tab.active").removeClass("active");
+    var strTab = `
+        <div class="etabs-tab active visible" tab-id=${this.lastTab++}>
+          <span class="etabs-tab-icon"></span>
+          <span class="etabs-tab-title" title="Google">Google</span>
+          <span class="etabs-tab-buttons"><button class="etabs-tab-button-close">×</button></span>
+          <span class="etabs-tab-badge hidden"></span>
+        </div>
+      `;
+    $(".etabs-tabs").append(strTab);
   }
 
   clearOptions () {

@@ -1,8 +1,7 @@
 :root {
-  --ag-color-purple: #6e2de5;
-  --ag-color-black: #111;
-  --ag-color-white: #F2F2F2;
-  --ag-color-green: #2de56e;
+    --ag-color-back: #111;
+    --ag-color-text: #F2F2F2;
+    --ag-color-footer: grey
 }
 
 html, body {
@@ -13,8 +12,8 @@ html, body {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-    background: var(--ag-color-black);
-    color: var(--ag-color-white);
+    background: var(--ag-color-back);
+    color: var(--ag-color-text);
 	font-family: system-ui;
 }
 
@@ -120,7 +119,7 @@ find-menu {
     padding: 10px;
     padding-top: 35px;
     padding-bottom: 35px;
-    background: brown;
+    background: var(--ag-color-footer);
 }
 .signin label{
 	font-size: 18px;

@@ -98,6 +98,7 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
+    "@cliqz/adblocker-webextension": "^1.18.0",
     "@geut/hyperdrive-promise": "^3.0.1",
     "auto-changelog": "^2.2.0",
     "await-exec": "^0.1.2",

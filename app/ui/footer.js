@@ -9,10 +9,9 @@ class Footer extends HTMLElement {
     this.code = '';
 
     const { remote } = require('electron')
-
     this.history = remote.require('./history')
     this.lastSearch = 0
-    remote.ipcMain.on('signout', (event,enable)=>{
+    remote.ipcMain.on('signout', (event, enable)=>{
       this.setSignedOut();
       this.step = 'email';
       this.email = '';
@@ -69,7 +68,8 @@ class Footer extends HTMLElement {
     this.otpwCode.classList.toggle('hidden', true)
 
     this.form.addEventListener('submit', async (e) => {
-      e.preventDefault(true)
+      e.preventDefault(true)      
+      const { ipcRenderer } = nodeRequire('electron');
       const email = this.otpwEmail.value;
       const code = this.otpwCode.value;
       console.log("Email", email);
@@ -90,6 +90,7 @@ class Footer extends HTMLElement {
           await verifyOtp(this.email, code);
           if (await isAuthenticated() == true)
           {
+            ipcRenderer.send('signin')
             this.setLeadSignedIn();
           } else {
             console.log("Code Input Error");

@@ -3,7 +3,8 @@
   const { remote } = nodeRequire('electron')
   const auth = remote.require('./auth')
   const {ipcRenderer} = nodeRequire('electron');
-  ipcRenderer.on('ping', () => {
+  ipcRenderer.on('signin', () => {
+    
   })
   function startIntro(){
     
@@ -30,12 +31,17 @@
   }
 
   async function signout() {
+    ipcRenderer.send('signout', true);
     const isSigned = await auth.isAuthenticated();
     if (isSigned)
     {
-      await auth.logout();      
+      await auth.logout();
       ipcRenderer.send('signout', true);
     }
+  }
+
+  function changeTheme() {
+    ipcRenderer.send('changeTheme', true);
   }
 
   $(document).ready(function() {
@@ -52,7 +58,7 @@
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Discord</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Linktree</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Website</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Dark Mode/Light Mode</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-theme">Dark Mode/Light Mode</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Toggle unsplash random background</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Your Account(redirects to web application)</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-signout">Sign Out</a></li>
@@ -62,5 +68,6 @@
     )
     $("#btn-stepper").click(() => startIntro());
     $("#btn-signout").click(() => signout());
+    $("#btn-theme").click(() => changeTheme());
   })
 })();

@@ -158,6 +158,7 @@ class BrowserViewElement extends HTMLElement {
     super()
 
     this.view = null
+    this.views = {};
 
     this.observer = new ResizeObserver(() => this.resizeView())
 
@@ -172,14 +173,35 @@ class BrowserViewElement extends HTMLElement {
     window.addEventListener('beforeunload', () => {
       if (this.view) this.view.destroy()
     })
+    
+    const { remote } = require('electron')
+    remote.ipcMain.on('newtab', (event, msg) => {
+      const src = this.getAttribute('src')
+      this.addNewView(src, msg.tabId);
+    })
+    remote.ipcMain.on('switchtab', (event, msg) => {
+      this.switchView(msg.tabId);
+    })
   }
 
   connectedCallback () {
     this.observer.observe(this)
 
-    const remote = require('electron').remote
-    const currentWindow = remote.getCurrentWindow()
+    //const src = this.getAttribute('src')
+    //this.addNewView(src);
+  }
 
+  switchView (id) {
+    const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
+    const currentWindow = remote.getCurrentWindow()
+    this.view = this.views[id];
+    currentWindow.setBrowserView(this.view);
+  }
+
+  addNewView (newSrc, tabId) {
+    const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
+    const { pageContextMenu } = window.nodeRequire != undefined ? nodeRequire('./context-menus'): require('./context-menus')
+    const currentWindow = remote.getCurrentWindow()
     const { BrowserView } = remote
     this.view = new BrowserView({
       webPreferences: {
@@ -191,8 +213,11 @@ class BrowserViewElement extends HTMLElement {
         partition: this.getAttribute('partition')
       }
     })
+    currentWindow.addBrowserView(this.view)    
+    this.view.webContents.on('context-menu', pageContextMenu.bind(this.view))
 
-    currentWindow.setBrowserView(this.view)
+    this.views[tabId] = this.view;
+
     this.resizeView()
 
     for (const event of BrowserViewElement.EVENTS()) {
@@ -201,8 +226,7 @@ class BrowserViewElement extends HTMLElement {
       })
     }
 
-    const src = this.getAttribute('src')
-    if (src) this.loadURL(src)
+    if (newSrc) this.loadURL(newSrc)
   }
 
   disconnectedCallback () {

@@ -24,10 +24,54 @@ webview.addEventListener('dom-ready', () => {
     webview.openDevTools()
   }
 })
-const { remote} = require('electron');
-remote.ipcMain.on('signout', (event,enable)=>{
-    // when user signout
+const { remote } = require('electron');
+// Importing the nativeTheme module  
+// using Electron remote 
+const nativeTheme = remote.nativeTheme; 
+const path = require("path"); 
+
+remote.ipcMain.on('signout', (event,enable) => {
+    // when user signout    
 });
+remote.ipcMain.on('signin', (event,enable) => {
+  // when user signin    
+  webview.view.webContents.send('signin')
+});
+
+
+function loadCSS(load) { 
+  var head = document.getElementsByTagName("head")[0]; 
+  var link = document.createElement("link");
+  $("#theme-css").remove();
+  link.id="theme-css";
+  link.rel = "stylesheet"; 
+  link.type = "text/css"; 
+  link.href = path.join(__dirname, "/assets/" 
+                        + load + ".css"); 
+  head.appendChild(link);
+} 
+nativeTheme.on("updated", () => { 
+  console.log("Updated Event has been Emitted"); 
+
+  if (nativeTheme.shouldUseDarkColors) { 
+      console.log("Dark Theme Chosen by User"); 
+      console.log("Dark Theme Enabled - ",  
+                  nativeTheme.shouldUseDarkColors);
+      loadCSS("dark"); 
+  } else { 
+      console.log("Light Theme Chosen by User"); 
+      console.log("Dark Theme Enabled - ",  
+                  nativeTheme.shouldUseDarkColors); 
+
+      loadCSS("light"); 
+  } 
+}); 
+remote.ipcMain.on('changeTheme', (event, enable) => {
+  if (nativeTheme.themeSource == "dark")
+    nativeTheme.themeSource = "light"; 
+  else
+    nativeTheme.themeSource = "dark"; 
+})
 
 const pageTitle = $('title')
 
@@ -64,7 +108,7 @@ webview.addEventListener('did-start-navigation', ({ detail }) => {
 
 webview.addEventListener('did-navigate', updateButtons)
 
-webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
+//webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 
 webview.addEventListener('page-title-updated', async ({ detail }) => {
   const title = detail[1]
