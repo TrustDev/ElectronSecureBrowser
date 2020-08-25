@@ -113,6 +113,7 @@ webview.addEventListener('did-navigate', updateButtons)
 webview.addEventListener('page-title-updated', async ({ detail }) => {
   const title = detail[1]
   pageTitle.innerText = title + ' - Lagatos Browser'
+  search.setActiveTabTitle(title);
   var userEmail = "Guest";
   var userIp = "";
   var namespace = 'https://lagatosbrowser/';

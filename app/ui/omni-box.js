@@ -108,12 +108,16 @@ class OmniBox extends HTMLElement {
     var strTab = `
         <div class="etabs-tab active visible" tab-id=${this.lastTab++}>
           <span class="etabs-tab-icon"></span>
-          <span class="etabs-tab-title" title="Google">Google</span>
+          <span class="etabs-tab-title" title="New Tab">New Tab</span>
           <span class="etabs-tab-buttons"><button class="etabs-tab-button-close">×</button></span>
           <span class="etabs-tab-badge hidden"></span>
         </div>
       `;
     $(".etabs-tabs").append(strTab);
+  }
+
+  setActiveTabTitle (title) {
+    $(".etabs-tab.active .etabs-tab-title").text(title).attr("title", title);
   }
 
   clearOptions () {
