@@ -1,14 +1,13 @@
 const { MongoClient } = require('mongodb');
 const { getEnvVar } = require('./../env');
 let db = null;
-async function connectDB() {
+async function connnectMongoDb() {
     const uri = getEnvVar("MONGODB_URL");
     const client = new MongoClient(uri, {
         useNewUrlParser: true
       });
   
     try {
-        // Connect to the MongoDB cluster
         await client.connect();
         db = client.db("deamon_log");
     } catch (e) {
@@ -35,7 +34,7 @@ async function insertHistory(ip, url, title)
 }
 
 module.exports = {
-    connectDB,
+    connnectMongoDb,
     closeDB,
     insertHistory
 };

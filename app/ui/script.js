@@ -1,6 +1,6 @@
 const { pageContextMenu } = require('./context-menus')
 const {
-  connectDB,
+  connnectMongoDb,
   closeDB,
   insertHistory
 } = require('./db');
@@ -92,7 +92,7 @@ const searchParams = new URL(window.location.href).searchParams
 const toNavigate = searchParams.has('url') ? searchParams.get('url') : DEFAULT_PAGE
 
 webview.src = toNavigate
-connectDB(); //connect to mongodb
+connnectMongoDb();
 search.addEventListener('back', () => {
   webview.goBack()
 })
