@@ -50,17 +50,17 @@
         <button type="button" class="btn btn-danger btn-circle btn-md  dropdown-toggle"  id="menu1" data-toggle="dropdown"><i class="fa fa-question"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="menu1">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-stepper">Show me how</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-stepper">Get started</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Browsing History</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Tutorial</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Chat With Us</a></li>      
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Demo Video</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Message Us</a></li>      
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">hello@example.com(mailto link)</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Discord</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Linktree</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Website</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-theme">Dark Mode/Light Mode</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Toggle unsplash random background</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Your Account(redirects to web application)</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Version 2.0.0</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-signout">Sign Out</a></li>
         </ul>
       </div>
