@@ -13,7 +13,7 @@ const {
   getTokenSilently,
   logout
 } = require('../auth')
-const DEFAULT_PAGE = 'https://www.w3schools.com/bootstrap/bootstrap_buttons.asp';//'lagatos://welcome'
+const DEFAULT_PAGE = 'lagatos://welcome'
 
 const webview = $('#view')
 const search = $('#search')
@@ -35,7 +35,7 @@ search.addEventListener('adguard', (e) => {
   webview.switchAdGuard();
   webview.src = webview.src; //reload
 })
-const { app, session, remote } = require('electron');
+const { remote } = require('electron');
 // Importing the nativeTheme module  
 // using Electron remote 
 const nativeTheme = remote.nativeTheme; 
@@ -181,3 +181,8 @@ function navigateTo (url) {
     webview.focus()
   }
 }
+
+const { globalShortcut } = remote
+globalShortcut.register('CommandOrControl+N', () => {
+  search.addNewTab();
+})
