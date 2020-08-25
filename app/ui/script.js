@@ -14,6 +14,7 @@ const {
   getTokenSilently,
   logout
 } = require('../auth')
+const { accelerators } = require('../config');
 const DEFAULT_PAGE = 'lagatos://welcome'
 
 const webview = $('#view')
@@ -184,6 +185,7 @@ function navigateTo (url) {
 }
 
 const { globalShortcut } = remote
-globalShortcut.register('CommandOrControl+N', () => {
+
+globalShortcut.register(accelerators.NewWindow, () => {
   search.addNewTab();
 })
