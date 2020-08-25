@@ -269,8 +269,10 @@ class BrowserViewElement extends HTMLElement {
       width: Math.trunc(width),
       height: Math.trunc(height)
     }
-
-    this.view.setBounds(rect)
+    for (const id in this.views) {
+      const childView = this.views[id];
+      childView.setBounds(rect)
+    }
   }
 
   get src () { return this.getAttribute('src') }
