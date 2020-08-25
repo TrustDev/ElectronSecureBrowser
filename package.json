@@ -71,10 +71,6 @@
       "category": "Development"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://bitbucket.org/lagatoshq/browser-v2.git"
-  },
   "keywords": [
     "dat",
     "hypercore",
@@ -84,12 +80,6 @@
     "browser",
     "dweb"
   ],
-  "author": "rangermauve <ranger@mauve.moe> (https://mauve.moe/)",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://bitbucket.org/lagatoshq/browser-v2/issues"
-  },
-  "homepage": "https://bitbucket.org/lagatoshq/browser-v2#readme",
   "devDependencies": {
     "cross-env": "^7.0.2",
     "electron": "^9.1.0",
