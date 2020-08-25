@@ -9,6 +9,7 @@ const {
   verifyOtp,
   requestOtp,
   getUser,
+  getUserInfo,
   getIdToken,
   getTokenSilently,
   logout

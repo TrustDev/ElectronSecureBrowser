@@ -80,6 +80,19 @@ async function refreshAccessToken(refreshToken) {
     return record;
 }
 
+async function getUserInfo() {
+    const access_token = await getTokenSilently();
+    const res = await fetch(`https://${getEnvVar('auth0_domain')}/userinfo`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${access_token}`
+        }
+    });
+    if (!res.ok) throw new Error(res.statusText);
+    const userData = await res.json();
+    return userData;
+}
+
 async function getUser() {
     const authorized = await isAuthenticated();
     if (!authorized) throw new Error('No user found.');
@@ -145,6 +158,7 @@ module.exports = {
     verifyOtp,
     requestOtp,
     getUser,
+    getUserInfo,
     getIdToken,
     getTokenSilently,
     logout
