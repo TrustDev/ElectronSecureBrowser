@@ -1,7 +1,10 @@
 :root {
     --ag-color-back: #111;
     --ag-color-text: #F2F2F2;
-    --ag-color-footer: grey
+	--ag-color-footer: grey;
+	--ag-color-navback: #e8e8e8;
+	--ag-color-navtext: #111;
+	--ag-color-omniback: #ffffff;
 }
 
 html, body {
@@ -42,8 +45,9 @@ omni-box {
 	display: flex;
 	flex-direction: row;
 	border: 2px solid var(--ag-color-purple);
-	background: var(--ag-color-black);
+	background: var(--ag-color-omniback);
 	color: var(--ag-color-white);
+	border-bottom: solid 1px;
 }
 
 .omni-box-form, .find-menu-form {
@@ -51,6 +55,10 @@ omni-box {
 	flex-direction: row;
 	flex:1;
 	border: none;
+    border-radius: 15px;
+	background: var(--ag-color-navback);
+	color: var(--ag-color-navtext);
+    margin: 3px;
 }
 
 .omni-box-input, .find-menu-input {
@@ -127,4 +135,26 @@ find-menu {
 
 #survicate-box .sv__survey{
 	bottom: 5px !important;
+}
+
+.extensions {
+	width: 300px;
+	height: 34px;
+}
+.adguard {
+	height: 100%;
+	width: 35px;
+}
+.adguard button{
+	margin-top: 3px;
+    height: 100%;
+    width: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--ag-color-omniback);
+}
+.adguard img{
+	height: 60%;
+}
+.adguard img.inactive {
+	filter: grayscale(1);
 }

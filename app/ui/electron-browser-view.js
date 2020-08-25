@@ -212,7 +212,7 @@ class BrowserViewElement extends HTMLElement {
     this.dispatchEvent(new CustomEvent('switchView'))
   }
 
-  addNewView (newSrc, tabId) {    
+  async addNewView (newSrc, tabId) {    
 
     const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
     const { pageContextMenu } = window.nodeRequire != undefined ? nodeRequire('./context-menus'): require('./context-menus')
@@ -242,15 +242,14 @@ class BrowserViewElement extends HTMLElement {
     }
 
     if (newSrc) this.loadURL(newSrc)
-    this.enableAdGuard(true);
+    await this.initAdBlocker();
+    this.switchAdGuard();
   }
-
-  async enableAdGuard (state) {
-    if (this.adGuardState == state) return;    
+  
+  async initAdBlocker() {
     const fs = nodeRequire('fs').promises;
     const { ElectronBlocker, fullLists, Request } = nodeRequire('@cliqz/adblocker-electron');
 
-    this.adGuardState = state;
     const blocker = await ElectronBlocker.fromLists(fetch, fullLists, {
       loadCosmeticFilters: false, 
       enableCompression: true,
@@ -259,11 +258,7 @@ class BrowserViewElement extends HTMLElement {
       read: fs.readFile,
       write: fs.writeFile,
     });
-    console.log(blocker);
-    if (this.adGuardState)
-      blocker.enableBlockingInSession(webview.view.webContents.session.webRequest);
-    else
-      blocker.disableBlockingInSession(webview.view.webContents.session.webRequest);
+    this.view.blocker = blocker;
     blocker.on('request-blocked', (request) => {
       console.log('blocked', request.tabId, request.url);
     });
@@ -287,7 +282,19 @@ class BrowserViewElement extends HTMLElement {
     blocker.on('style-injected', (style, url) => {
       console.log('style', style.length, url);
     });
+  }
 
+  async switchAdGuard () {
+    this.adGuardState = !this.adGuardState;
+    const blocker = this.view.blocker;
+    if (this.adGuardState)
+      blocker.enableBlockingInSession(webview.view.webContents.session.webRequest);
+    else
+      blocker.disableBlockingInSession(webview.view.webContents.session.webRequest);
+    
+    this.dispatchEvent(new CustomEvent("switchAdGuard", { detail: {
+      state: this.adGuardState
+    }}));
   }
 
   disconnectedCallback () {

@@ -26,6 +26,11 @@ class OmniBox extends HTMLElement {
           <input class="omni-box-input" title="Enter search params">
           <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
+        <div class="extensions">
+          <div class="extension adguard">
+            <button><img class="inactive" src="./assets/adguard.png"></img></button>
+          </div>
+        </div>
       </section>
       <section class="omni-box-nav-options" aria-live="polite"></section>
     `
@@ -35,6 +40,7 @@ class OmniBox extends HTMLElement {
     this.input = this.$('.omni-box-input')
     this.options = this.$('.omni-box-nav-options')
     this.newtabButton = this.$('.etabs-tab-button-new');
+    this.adguard = this.$('.adguard button');
 
     window.addEventListener('load', (event) => {
       console.log('page is fully loaded');            
@@ -64,9 +70,12 @@ class OmniBox extends HTMLElement {
           ipcRenderer.send('switchtab', { tabId: -1 }) // emtpy
         }
       })
-
-
     });
+
+    this.adguard.addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('adguard'))
+    })
+
     this.newtabButton.addEventListener('click', () => {
       this.addNewTab();
     })    
@@ -136,6 +145,13 @@ class OmniBox extends HTMLElement {
     $(".etabs-tab.active .etabs-tab-title").text(title).attr("title", title);
   }
 
+  setAdguardState(state) {
+    if (state == true)
+      $(".adguard img").removeClass("inactive");
+    else
+      $(".adguard img").addClass("inactive");
+  }
+  
   clearOptions () {
     this.options.innerHTML = ''
   }

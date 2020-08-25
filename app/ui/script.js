@@ -27,6 +27,14 @@ webview.addEventListener('dom-ready', () => {
 webview.addEventListener('switchView', (e) => {
   search.setNavigationURL(webview.view.webContents.getURL());
 })
+webview.addEventListener('switchAdGuard', (e) => {
+  search.setAdguardState(e.detail.state);
+})
+
+search.addEventListener('adguard', (e) => {
+  webview.switchAdGuard();
+  webview.src = webview.src; //reload
+})
 const { app, session, remote } = require('electron');
 // Importing the nativeTheme module  
 // using Electron remote 
