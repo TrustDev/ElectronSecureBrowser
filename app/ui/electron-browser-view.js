@@ -159,6 +159,7 @@ class BrowserViewElement extends HTMLElement {
 
     this.view = null
     this.views = {};
+    this.adGuardState = false;
 
     this.observer = new ResizeObserver(() => this.resizeView())
 
@@ -241,6 +242,52 @@ class BrowserViewElement extends HTMLElement {
     }
 
     if (newSrc) this.loadURL(newSrc)
+    this.enableAdGuard(true);
+  }
+
+  async enableAdGuard (state) {
+    if (this.adGuardState == state) return;    
+    const fs = nodeRequire('fs').promises;
+    const { ElectronBlocker, fullLists, Request } = nodeRequire('@cliqz/adblocker-electron');
+
+    this.adGuardState = state;
+    const blocker = await ElectronBlocker.fromLists(fetch, fullLists, {
+      loadCosmeticFilters: false, 
+      enableCompression: true,
+    }, {
+      path: 'engine.bin',
+      read: fs.readFile,
+      write: fs.writeFile,
+    });
+    console.log(blocker);
+    if (this.adGuardState)
+      blocker.enableBlockingInSession(webview.view.webContents.session.webRequest);
+    else
+      blocker.disableBlockingInSession(webview.view.webContents.session.webRequest);
+    blocker.on('request-blocked', (request) => {
+      console.log('blocked', request.tabId, request.url);
+    });
+  
+    blocker.on('request-redirected', (request) => {
+      console.log('redirected', request.tabId, request.url);
+    });
+  
+    blocker.on('request-whitelisted', (request) => {
+      console.log('whitelisted', request.tabId, request.url);
+    });
+  
+    blocker.on('csp-injected', (request) => {
+      console.log('csp', request.url);
+    });
+  
+    blocker.on('script-injected', (script, url) => {
+      console.log('script', script.length, url);
+    });
+  
+    blocker.on('style-injected', (style, url) => {
+      console.log('style', style.length, url);
+    });
+
   }
 
   disconnectedCallback () {

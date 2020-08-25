@@ -13,7 +13,7 @@ const {
   getTokenSilently,
   logout
 } = require('../auth')
-const DEFAULT_PAGE = 'lagatos://welcome'
+const DEFAULT_PAGE = 'https://www.w3schools.com/bootstrap/bootstrap_buttons.asp';//'lagatos://welcome'
 
 const webview = $('#view')
 const search = $('#search')
@@ -27,7 +27,7 @@ webview.addEventListener('dom-ready', () => {
 webview.addEventListener('switchView', (e) => {
   search.setNavigationURL(webview.view.webContents.getURL());
 })
-const { remote } = require('electron');
+const { app, session, remote } = require('electron');
 // Importing the nativeTheme module  
 // using Electron remote 
 const nativeTheme = remote.nativeTheme; 
