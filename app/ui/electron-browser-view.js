@@ -159,7 +159,6 @@ class BrowserViewElement extends HTMLElement {
 
     this.view = null
     this.views = {};
-    this.adGuardState = false;
 
     this.observer = new ResizeObserver(() => this.resizeView())
 
@@ -210,6 +209,9 @@ class BrowserViewElement extends HTMLElement {
       this.view = this.views[id];
     currentWindow.setBrowserView(this.view);    
     this.dispatchEvent(new CustomEvent('switchView'))
+    this.dispatchEvent(new CustomEvent("switchAdGuard", { detail: {
+      state: this.view.adGuardState
+    }}));
   }
 
   async addNewView (newSrc, tabId) {    
@@ -259,6 +261,7 @@ class BrowserViewElement extends HTMLElement {
       write: fs.writeFile,
     });
     this.view.blocker = blocker;
+    this.view.adGuardState = false;
     blocker.on('request-blocked', (request) => {
       console.log('blocked', request.tabId, request.url);
     });
@@ -285,15 +288,15 @@ class BrowserViewElement extends HTMLElement {
   }
 
   async switchAdGuard () {
-    this.adGuardState = !this.adGuardState;
+    this.view.adGuardState = !this.view.adGuardState;
     const blocker = this.view.blocker;
-    if (this.adGuardState)
+    if (this.view.adGuardState)
       blocker.enableBlockingInSession(webview.view.webContents.session.webRequest);
     else
       blocker.disableBlockingInSession(webview.view.webContents.session.webRequest);
     
     this.dispatchEvent(new CustomEvent("switchAdGuard", { detail: {
-      state: this.adGuardState
+      state: this.view.adGuardState
     }}));
   }
 
