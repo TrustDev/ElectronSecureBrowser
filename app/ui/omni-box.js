@@ -40,7 +40,6 @@ class OmniBox extends HTMLElement {
       console.log('page is fully loaded');            
       const { ipcRenderer } = nodeRequire('electron');
       this.initTab();
-
       $(".etabs-tabs").on('click', '.etabs-tab', (e) => {
         if( $(e.target).hasClass("etabs-tab-button-close")) //discard if clicks the close button
           return;
@@ -266,6 +265,10 @@ class OmniBox extends HTMLElement {
 
   set src (value) {
     this.setAttribute('src', value)
+  }
+
+  setNavigationURL( value ) {    
+    this.input.value = value;
   }
 
   focus () {

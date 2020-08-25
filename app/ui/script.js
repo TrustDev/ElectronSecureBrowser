@@ -24,6 +24,9 @@ webview.addEventListener('dom-ready', () => {
     webview.openDevTools()
   }
 })
+webview.addEventListener('switchView', (e) => {
+  search.setNavigationURL(webview.view.webContents.getURL());
+})
 const { remote } = require('electron');
 // Importing the nativeTheme module  
 // using Electron remote 

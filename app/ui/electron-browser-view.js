@@ -197,7 +197,9 @@ class BrowserViewElement extends HTMLElement {
   closeView (id) {
     delete this.views[id];
   }
+
   switchView (id) {
+    const {ipcRenderer} = window.nodeRequire != undefined ? nodeRequire('electron').ipcRenderer : require('electron').ipcRenderer;
     const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
     const currentWindow = remote.getCurrentWindow()
     if (id == -1) {
@@ -205,10 +207,12 @@ class BrowserViewElement extends HTMLElement {
     }
     else
       this.view = this.views[id];
-    currentWindow.setBrowserView(this.view);
+    currentWindow.setBrowserView(this.view);    
+    this.dispatchEvent(new CustomEvent('switchView'))
   }
 
-  addNewView (newSrc, tabId) {
+  addNewView (newSrc, tabId) {    
+
     const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
     const { pageContextMenu } = window.nodeRequire != undefined ? nodeRequire('./context-menus'): require('./context-menus')
     const currentWindow = remote.getCurrentWindow()
@@ -223,7 +227,7 @@ class BrowserViewElement extends HTMLElement {
         partition: this.getAttribute('partition')
       }
     })
-    currentWindow.addBrowserView(this.view)    
+    currentWindow.addBrowserView(this.view) 
     this.view.webContents.on('context-menu', pageContextMenu.bind(this.view))
 
     this.views[tabId] = this.view;
