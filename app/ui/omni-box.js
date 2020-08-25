@@ -42,13 +42,30 @@ class OmniBox extends HTMLElement {
       this.initTab();
 
       $(".etabs-tabs").on('click', '.etabs-tab', (e) => {
+        if( $(e.target).hasClass("etabs-tab-button-close")) //discard if clicks the close button
+          return;
         $(".etabs-tab.active").removeClass("active");
         let target = e.currentTarget;      
         $(target).addClass("active");
         let tabId = $(target).attr("tab-id");
-        console.log(tabId);
         ipcRenderer.send('switchtab', { tabId: tabId })        
       })
+      $(".etabs-tabs").on('click', '.etabs-tab-button-close', (e) => {
+        let target = e.currentTarget;      
+        let tabTag = $(target).parent().parent();
+        let tabId = $(tabTag).attr("tab-id");
+        $(tabTag).remove();
+        ipcRenderer.send('closetab', { tabId: tabId })
+        var tabs = $(".etabs-tab");
+        if (tabs.length != 0) {
+          $(tabs[0]).addClass("active");
+          tabId = $(tabs[0]).attr("tab-id");
+          ipcRenderer.send('switchtab', { tabId: tabId })
+        } else {
+          ipcRenderer.send('switchtab', { tabId: -1 }) // emtpy
+        }
+      })
+
 
     });
     this.newtabButton.addEventListener('click', () => {

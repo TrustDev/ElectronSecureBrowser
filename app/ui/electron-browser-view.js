@@ -182,6 +182,9 @@ class BrowserViewElement extends HTMLElement {
     remote.ipcMain.on('switchtab', (event, msg) => {
       this.switchView(msg.tabId);
     })
+    remote.ipcMain.on('closetab', (event, msg) => {
+      this.closeView(msg.tabId);
+    })
   }
 
   connectedCallback () {
@@ -191,10 +194,17 @@ class BrowserViewElement extends HTMLElement {
     //this.addNewView(src);
   }
 
+  closeView (id) {
+    delete this.views[id];
+  }
   switchView (id) {
     const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
     const currentWindow = remote.getCurrentWindow()
-    this.view = this.views[id];
+    if (id == -1) {
+      this.view = null;
+    }
+    else
+      this.view = this.views[id];
     currentWindow.setBrowserView(this.view);
   }
 
