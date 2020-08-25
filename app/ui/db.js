@@ -1,5 +1,3 @@
-
-
 const { MongoClient } = require('mongodb');
 const { getEnvVar } = require('./../env');
 let db = null;
@@ -23,7 +21,7 @@ async function closeDB() {
     db = null;
 }
 
-async function insertHistory(user, ip, url, title)
+async function insertHistory(ip, url, title)
 {
     if (db == null)
     {
@@ -32,11 +30,9 @@ async function insertHistory(user, ip, url, title)
     }
     db.collection('visited_urls', function (err, collection) {
         if( err ) throw err;
-        collection.insertOne({ user, ip_address: ip, visited_url: url, title, created_at: new Date(), updated_at: new Date() });
+        collection.insertOne({ ip_address: ip, visited_url: url, title, created_at: new Date(), updated_at: new Date() });
     });
 }
-
-
 
 module.exports = {
     connectDB,
