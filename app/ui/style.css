@@ -158,3 +158,9 @@ find-menu {
 .adguard img.inactive {
 	filter: grayscale(1);
 }
+
+.tooltip-inner {
+    max-width: 380px;
+    /* If max-width does not work, try using width instead */
+    width: 380px; 
+}

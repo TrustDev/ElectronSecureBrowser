@@ -27,7 +27,7 @@ class OmniBox extends HTMLElement {
           <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
         <div class="extensions">
-          <div class="extension adguard">
+          <div class="extension adguard" data-toggle="tooltip" data-trigger="manual" data-placement="left" title="Having issues loading this page? Temporarily unblock ads and tracking for this window by clicking this shield.">
             <button><img class="inactive" src="./assets/adguard.png"></img></button>
           </div>
         </div>
@@ -45,6 +45,7 @@ class OmniBox extends HTMLElement {
     window.addEventListener('load', (event) => {
       console.log('page is fully loaded');            
       const { ipcRenderer } = nodeRequire('electron');
+      $('[data-toggle="tooltip"]').tooltip();
       this.initTab();
       $(".etabs-tabs").on('click', '.etabs-tab', (e) => {
         if( $(e.target).hasClass("etabs-tab-button-close")) //discard if clicks the close button
@@ -74,6 +75,15 @@ class OmniBox extends HTMLElement {
 
     this.adguard.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('adguard'))
+    })
+
+    this.adguard.addEventListener('mouseover', () => {
+      if($('.adguard img').hasClass("inactive") == false)
+        $('.adguard').tooltip('show');
+    })
+
+    this.adguard.addEventListener('mouseout', () => {
+      $('.adguard').tooltip('hide');
     })
 
     this.newtabButton.addEventListener('click', () => {

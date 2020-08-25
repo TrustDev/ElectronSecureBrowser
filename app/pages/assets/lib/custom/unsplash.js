@@ -25,7 +25,7 @@
     function startShowImage() {
         if (images.length == 0)
             return;
-        const url = images[index].urls.small;
+        const url = images[index].urls.regular;
         index ++;
         if (index > images.length)
             index = 0;            
