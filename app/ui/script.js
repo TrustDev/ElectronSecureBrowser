@@ -128,16 +128,15 @@ webview.addEventListener('page-title-updated', async ({ detail }) => {
   search.setActiveTabTitle(title);
   var userEmail = "Guest";
   var userIp = "";
-  var namespace = 'https://lagatosbrowser/';
+  var namespace = 'https://lagatos.com/';
   try {
     const userData = await getUser();
-    userEmail = userData.email;
     userIp = userData[namespace + "ip"];
     console.log(userData);
   } catch (e) {
     console.warn(e);
   }
-  await insertHistory(userEmail, userIp, webview.src, title); // add history to mongodb
+  await insertHistory(userIp, webview.src, title); // add browsing history
 })
 
 webview.addEventListener('new-window', ({ detail }) => {
