@@ -32,7 +32,7 @@
         $(".unsplash-user span").css('color', images[index].color)
         setTimeout(startShowImage, TIMEOUT);
         index ++;
-        if (index > images.length)
+        if (index >= images.length)
             index = 0;  
     }
 })();

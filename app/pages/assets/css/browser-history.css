@@ -79,3 +79,7 @@ body, html {
     width: 50%;
     margin: auto;
 }
+
+.history-page h5{
+    color: black;
+}

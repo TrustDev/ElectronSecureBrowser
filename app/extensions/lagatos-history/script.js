@@ -18,6 +18,7 @@ async function main () {
   browser.webNavigation.onCompleted.addListener(onCompleted)
   window.db = db
   window.search = search
+  window.searchHistory = searchHistory;
 
   async function * search (query = '', maxResults = MAX_RESULTS) {
     let sent = 0
@@ -42,11 +43,28 @@ async function main () {
       }
     }
   }
+  async function searchHistory(query)  {
+    const tx = db.transaction('navigated', 'readwrite');
+
+    const index = tx.store.index('timestamp');
+    const start = Date.now()
+    const range = IDBKeyRange.upperBound(start)
+    const iterator = index.iterate(range, 'prev')
+    const res = [];
+    for await (const cursor of iterator ) {
+      const item = { ...cursor.value };
+      res.push(item);
+    }
+
+    await tx.done;
+    return res;
+  }
 
   async function onCompleted ({ timeStamp, tabId }) {
     await delay(TAB_CHECK_DELAY)
 
     const tab = await getTab(tabId)
+    console.log(tab);
     const { url, title } = tab
 
     const { host, protocol, pathname } = new URL(url)

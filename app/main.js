@@ -6,6 +6,7 @@ const { registerMenu } = require('./menu')
 const { createWindow, saveOpen, loadFromHistory } = require('./windows')
 const { registerExtensions } = require('./extensions')
 const history = require('./history')
+const favicon = require('./favicon');
 
 const LOGO_FILE = path.join(__dirname, '../build/icon.png')
 const WEB_PARTITION = 'persist:web-content'
@@ -61,7 +62,6 @@ async function onready () {
 
   const historyExtension = extensions.extensions['lagatos-history']
   history.setExtension(historyExtension)
-
   const rootURL = new URL(process.cwd(), 'file://')
 
   const urls = process.argv
@@ -74,3 +74,13 @@ async function onready () {
     if (!opened.length) createWindow()
   }
 }
+
+const {ipcMain} = require('electron')
+
+ipcMain.on('getbrowserhistory', async (event, enable) => {
+    // when get browser history
+    const res = await history.search('welcome');
+    const favicons = await favicon.getFavicon();
+    console.log("requesting browser history");
+    event.sender.send("browserhistory", { history: res, favicons: favicons });
+});

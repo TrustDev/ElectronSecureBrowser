@@ -15,6 +15,7 @@ const {
   logout
 } = require('../auth')
 const { accelerators } = require('../config');
+const favicon = require('../favicon');
 const DEFAULT_PAGE = 'lagatos://welcome'
 
 const webview = $('#view')
@@ -122,6 +123,11 @@ webview.addEventListener('did-start-navigation', ({ detail }) => {
 webview.addEventListener('did-navigate', updateButtons)
 
 //webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
+webview.addEventListener('page-favicon-updated', async (e) => {
+  var iconUrl = e.detail[1][0];
+  var src = webview.src;
+  await favicon.saveFavicon(src, iconUrl); // save fav icons for browser history
+});
 
 webview.addEventListener('page-title-updated', async ({ detail }) => {
   const title = detail[1]

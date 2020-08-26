@@ -16,6 +16,7 @@ async function search (query = '') {
   return webContents.executeJavaScript(`
     (async () => {
       let result = []
+      return window.searchHistory('${query}');
       for await(let item of search(${JSON.stringify(query)})) {
         result.push(item)
       }
