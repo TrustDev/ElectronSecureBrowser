@@ -88,7 +88,5 @@
     $("#btn-signout").click(() => signout());
     $("#btn-theme").click(() => changeTheme());
     $("#btn-demo").click(() => insertDemoVideo());
-
-    insertDemoVideo();
   })
 })();

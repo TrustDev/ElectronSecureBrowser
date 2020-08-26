@@ -6,6 +6,24 @@
     ipcRenderer.on('signin', () => {
         showSignedInAlert();
     })
+
+    function insertDemoVideo() {
+      let demoVideo = `
+            <div class="video-wrapper">    
+              <a href="javascript:;" class="loom-close" aria-label="close">&times;</a>
+              <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                  <iframe src="https://www.loom.com/embed/3b2b1eddd55d48e6879dc0c47dba5e3a" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                  </iframe>
+              </div>
+            </div>`;
+      if ($("video-wrapper").length == 0)    
+        $(demoVideo).insertAfter($("#browser-hint"));
+        
+      $(".loom-close").click(function() {
+        $(".video-wrapper").remove();
+      })
+    }
+
     function showSignedInAlert() {
         var alertTag = `
         <div class="signin-alert">
@@ -22,6 +40,7 @@
         </div>`;
         $(alertTag).insertAfter($("#earn-hint"));
     }
-    $(document).ready(function() {
+    $(document).ready(function() {      
+      insertDemoVideo();
     })
   })();
