@@ -18,7 +18,8 @@ async function main () {
   browser.webNavigation.onCompleted.addListener(onCompleted)
   window.db = db
   window.search = search
-  window.searchHistory = searchHistory;
+  window.searchHistory = searchHistory
+  window.getAllHistory = getAllHistory
 
   async function * search (query = '', maxResults = MAX_RESULTS) {
     let sent = 0
@@ -43,7 +44,30 @@ async function main () {
       }
     }
   }
-  async function searchHistory(query)  {
+
+  async function * searchHistory (query = '', maxResults = MAX_RESULTS) {
+    let sent = 0
+    const seen = new Set()
+
+    const regexText = query.split(' ').reduce((result, letter) => `${result}.*${letter}`, '')
+    const filter = new RegExp(regexText, 'iu')
+
+    const index = db.transaction(HISTORY_STORE, 'readonly').store.index('timestamp')
+    const start = Date.now()
+    const range = IDBKeyRange.upperBound(start)
+    const iterator = index.iterate(range, 'prev')
+
+    for await (const { value } of iterator) {
+      const { search: searchString, url } = value
+      if (searchString.match(filter)) {
+        yield value
+        sent++
+        if (maxResults > 0 && sent >= maxResults) break
+      }
+    }
+  }
+
+  async function getAllHistory(query)  {
     const tx = db.transaction('navigated', 'readwrite');
 
     const index = tx.store.index('timestamp');

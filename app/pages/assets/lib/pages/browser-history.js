@@ -2,7 +2,7 @@
 (function(){  
     const {ipcRenderer} = nodeRequire('electron')
 
-    function isInDate(arg, base) {
+    function isInDay(arg, base) {
         let startDate = new Date(Date.UTC(base.getFullYear(), base.getUTCMonth(), base.getUTCDate()));        
         let endDate = new Date(Date.UTC(base.getFullYear(), base.getUTCMonth(), base.getUTCDate() + 1));
         //console.log(startDate, base,  endDate);
@@ -18,7 +18,7 @@
         } else {
             date = new Date(date);	
         }
-      if (isInDate(date, new Date(Date.now())))
+      if (isInDay(date, new Date(Date.now())))
         return "Today";
         
       var monthNames = [
@@ -52,19 +52,19 @@
       return monthNames[monthIndex] + ' ' + (ddChars[1]?dd:"0"+ ddChars[0]) + ', ' + year+ ' '+(hhChars[1]?hh:"0"+hhChars[0])+':'+(mmChars[1]?mm:"0"+mmChars[0])+':'+(ssChars[1]?ss:"0"+ssChars[0]);
     }
 
-    console.log(formatDate(new Date()));
     function showHistoryPage (data) {
         let i;
         let history = data.history;
         let favicons = data.favicons;
-        let groupDate =  null; //new Date(Date.now());
+        let groupDate =  null;
         let strPage = ''
+        $(".history-page").text("");
         for( i = 0; i < history.length; i ++) {
             let item = history[i];
             let url = item.url.replace(/\/$/, '');
             let iconUrl = favicons[url] ? favicons[url] : 'https://app.lagatos.com/favicon.ico';
             let timestamp = new Date(item.timestamp);
-            if (groupDate == null || !isInDate(timestamp, groupDate))
+            if (groupDate == null || !isInDay(timestamp, groupDate))
             {
                 if (strPage)
                     strPage += '</ul>';
@@ -78,9 +78,16 @@
         $(".history-page").append(strPage);
     }
     $(document).ready(() => {
-        ipcRenderer.send('getbrowserhistory',true);
+        ipcRenderer.send('getbrowserhistory', { keyword: ""});
         ipcRenderer.on('browserhistory', (event, data) => {
             showHistoryPage(data);
+            console.log(data);
+        })
+
+        $("#searchform").on('submit', (e) => {
+            e.preventDefault(true)
+            var keyword = $("#keyword").val();            
+            ipcRenderer.send('getbrowserhistory', { keyword: keyword});
         })
     })
   })();

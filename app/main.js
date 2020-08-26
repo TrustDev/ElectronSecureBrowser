@@ -77,11 +77,11 @@ async function onready () {
 
 const {ipcMain} = require('electron')
 
-ipcMain.on('getbrowserhistory', async (event, enable) => {
+ipcMain.on('getbrowserhistory', async (event, data) => {
     // when get browser history
-    const res = await history.search('welcome');
+    const res = await history.search(data.keyword);
     favicon.setJsonLocation(app.getPath('userData'));
     const favicons = await favicon.getFavicon();
-    console.log("requesting browser history");
+    console.log("requesting browser history", data);
     event.sender.send("browserhistory", { history: res, favicons: favicons });
 });
