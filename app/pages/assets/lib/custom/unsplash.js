@@ -30,6 +30,7 @@
         $(".unsplash-user img").attr("src", images[index].user.profile_image.medium);
         $(".unsplash-user span").text(`${images[index].user.name}`)
         $(".unsplash-user span").css('color', images[index].color)
+        $(".unsplash-user a").attr("href", images[index].links.html);
         setTimeout(startShowImage, TIMEOUT);
         index ++;
         if (index >= images.length)

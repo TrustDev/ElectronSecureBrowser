@@ -36,7 +36,7 @@ webview.addEventListener('switchAdGuard', (e) => {
 
 search.addEventListener('adguard', (e) => {
   webview.switchAdGuard();
-  webview.src = webview.src; //reload
+  webview.src = webview.view.webContents.getURL(); //reload
 })
 const { remote } = require('electron');
 // Importing the nativeTheme module  
