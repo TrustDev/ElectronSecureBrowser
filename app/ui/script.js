@@ -86,6 +86,9 @@ remote.ipcMain.on('changeTheme', (event, enable) => {
   else
     nativeTheme.themeSource = "dark"; 
 })
+remote.ipcMain.on('opennewtab', (event, data) => {
+  search.addNewTab(data.url);
+})
 
 const pageTitle = $('title')
 

@@ -12,6 +12,7 @@
 
 .etabs-tabgroup.visible {
 	display: block;
+  overflow-x: hidden;
 }
 
 .etabs-tabs {

@@ -176,8 +176,8 @@ class BrowserViewElement extends HTMLElement {
     
     const { remote } = require('electron')
     remote.ipcMain.on('newtab', (event, msg) => {
-      const src = DEFAULT_PAGE
-      this.addNewView(src, msg.tabId);
+      const url = msg.url ? msg.url : DEFAULT_PAGE;
+      this.addNewView(url, msg.tabId);
     })
     remote.ipcMain.on('switchtab', (event, msg) => {
       this.switchView(msg.tabId);

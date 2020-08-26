@@ -72,7 +72,7 @@
                 strPage += '<ul class="list-group">';
                 groupDate = timestamp;
             }
-            strPage += `<li class="list-group-item"><img src="${iconUrl}"/><Label>${item.title}</Label>${item.host || item.pathname.replace(/^\/\//, "")}</li>`;
+            strPage += `<li class="list-group-item" data-url="${url}"><img src="${iconUrl}"/><Label>${item.title}</Label>${item.host || item.pathname.replace(/^\/\//, "")}</li>`;
         }
         strPage += '</ul>';
         $(".history-page").append(strPage);
@@ -85,6 +85,10 @@
         })
         ipcRenderer.on('emptybrowserhistory', (event, data) => {
             showHistoryPage({history: [], favicons: []});
+        })
+        $(".history-page").on('click', '.list-group-item', function(e) {
+            let url = $(e.currentTarget).attr("data-url");
+            ipcRenderer.send('opennewtab', { url: url });
         })
         $("#searchform").on('submit', (e) => {
             e.preventDefault(true)

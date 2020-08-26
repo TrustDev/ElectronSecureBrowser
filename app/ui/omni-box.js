@@ -136,9 +136,9 @@ class OmniBox extends HTMLElement {
     this.addNewTab();
   }
   
-  addNewTab() {          
+  addNewTab( url = '') {          
     const { ipcRenderer } = nodeRequire('electron');      
-    ipcRenderer.send('newtab', { tabId: this.lastTab })
+    ipcRenderer.send('newtab', { tabId: this.lastTab, url: url })
     $(".etabs-tab.active").removeClass("active");
     var strTab = `
         <div class="etabs-tab active visible" tab-id=${this.lastTab++}>
