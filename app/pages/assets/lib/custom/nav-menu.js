@@ -6,11 +6,20 @@
   ipcRenderer.on('signin', () => {
     
   })
+  let tooltip1 = null, tooltip2 = null;
   function startIntro(){
-    
-    if (!window.Tooltip) return;
 
-    var tooltip1 = Tooltip.create(
+    if (!window.Tooltip) return;
+    if (tooltip1 && tooltip2)
+    {
+      tooltip1.hide();
+      tooltip2.hide();
+      tooltip1.destroy();
+      tooltip2.destroy();
+      tooltip1 = tooltip2 = null;
+      return;
+    }
+    tooltip1 = Tooltip.create(
     document.getElementById('browser-hint'),
       {
         'orientation': 'bottom',
@@ -19,7 +28,7 @@
       }
     );          
     tooltip1.show();
-    var tooltip2 = Tooltip.create(
+    tooltip2 = Tooltip.create(
       document.getElementById('earn-hint'),
       {
         'orientation': 'top',
