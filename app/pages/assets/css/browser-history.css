@@ -1,3 +1,22 @@
+:root {
+    --ag-color-purple: #6e2de5;
+    --ag-color-black: #505050;
+    --ag-color-white: #F2F2F2;
+    --ag-color-green: #2de56e;
+}
+    
+body, html {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    background: var(--ag-color-black);
+    color: var(--ag-color-white);
+    font-family: system-ui;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}    
 /* The sidebar menu */
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -27,12 +46,36 @@
 
 /* Style page content */
 .main {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
+    margin-left: 160px;
+    padding: 0px 20px;
+    height: 100%;
+    overflow-y: scroll;
+    background: var(--ag-color-white);
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
+}
+
+.list-group-item {
+    color: #8a8a8a;
+}
+.list-group-item label {
+    padding-right: 5px;
+    color: #292929;
+}
+.list-group-item img{
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+.search-header {
+    margin-top: 20px;
+}
+.search-bar {
+    width: 50%;
+    margin: auto;
 }
