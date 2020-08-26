@@ -3,7 +3,8 @@ let historyExtension = null
 
 module.exports = {
   setExtension,
-  search
+  search,
+  clear
 }
 
 function setExtension (extension) {
@@ -20,6 +21,17 @@ async function search (query = '') {
         result.push(item)
       }
       return result
+    })()
+  `)
+}
+
+async function clear () {
+  const { webContents } = historyExtension.backgroundPage
+
+  return webContents.executeJavaScript(`
+    (async () => {
+      let result = await clearHistory();      
+      return result;
     })()
   `)
 }

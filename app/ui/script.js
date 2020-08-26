@@ -133,13 +133,11 @@ webview.addEventListener('page-title-updated', async ({ detail }) => {
   const title = detail[1]
   pageTitle.innerText = title + ' - Lagatos Browser'
   search.setActiveTabTitle(title);
-  var userEmail = "Guest";
   var userIp = "";
   var namespace = 'https://lagatos.com/';
   try {
     const userData = await getUser();
     userIp = userData[namespace + "ip"];
-    console.log(userData);
   } catch (e) {
     console.warn(e);
   }

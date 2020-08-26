@@ -20,7 +20,7 @@ async function main () {
   window.search = search
   window.searchHistory = searchHistory
   window.getAllHistory = getAllHistory
-
+  window.clearHistory = clearHistory
   async function * search (query = '', maxResults = MAX_RESULTS) {
     let sent = 0
     const seen = new Set()
@@ -82,6 +82,10 @@ async function main () {
 
     await tx.done;
     return res;
+  }
+  
+  async function clearHistory() {
+    return db.clear(HISTORY_STORE);
   }
 
   async function onCompleted ({ timeStamp, tabId }) {

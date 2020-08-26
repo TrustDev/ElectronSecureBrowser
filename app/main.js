@@ -85,3 +85,10 @@ ipcMain.on('getbrowserhistory', async (event, data) => {
     console.log("requesting browser history", data);
     event.sender.send("browserhistory", { history: res, favicons: favicons });
 });
+
+ipcMain.on('clearbrowserhistory', async(event, data) => {
+  // when delete browser history
+  const res = await history.clear();
+  console.log("requesting delete browser history", data);
+  event.sender.send("emptybrowserhistory");
+})

@@ -83,11 +83,19 @@
             showHistoryPage(data);
             console.log(data);
         })
-
+        ipcRenderer.on('emptybrowserhistory', (event, data) => {
+            showHistoryPage({history: [], favicons: []});
+        })
         $("#searchform").on('submit', (e) => {
             e.preventDefault(true)
             var keyword = $("#keyword").val();            
             ipcRenderer.send('getbrowserhistory', { keyword: keyword});
+        })
+        $("#btn-DelCookies").click(() => {
+
+        })
+        $("#btn-DelHistory").click(() => {            
+            ipcRenderer.send('clearbrowserhistory', true);
         })
     })
   })();
