@@ -3,7 +3,11 @@ const fs = require('fs-extra')
 const path = require('path')
 const { resolve } = require('path')
 
-const FAV_FILE = resolve(__dirname, 'favIcons.json')
+let FAV_FILE = resolve(__dirname, 'favIcons.json')
+
+function setJsonLocation( src ) {
+    FAV_FILE =  path.join(src, 'favIcons.json');
+}
 
 async function saveFavicon (src, icon) {
     let favicons = await getFavicon();
@@ -21,6 +25,7 @@ async function getFavicon() {
 }
 
 module.exports = {
+  setJsonLocation,
   saveFavicon,
   getFavicon
 }

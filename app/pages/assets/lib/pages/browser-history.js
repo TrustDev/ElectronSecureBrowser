@@ -80,7 +80,6 @@
     $(document).ready(() => {
         ipcRenderer.send('getbrowserhistory',true);
         ipcRenderer.on('browserhistory', (event, data) => {
-            console.log(data);
             showHistoryPage(data);
         })
     })
