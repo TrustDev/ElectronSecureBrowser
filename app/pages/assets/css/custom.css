@@ -106,3 +106,15 @@ h1 {
     width: 450px;
     line-height: 2;
 }
+
+.unsplash-user {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+}
+.unsplash-user img {
+    border-radius: 50%;
+}
+.unsplash-user span {
+    font-size: 16px;
+}

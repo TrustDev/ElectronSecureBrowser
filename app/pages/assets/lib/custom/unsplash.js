@@ -4,7 +4,7 @@
     const fetch = nodeRequire('node-fetch');
     let images = [];
     let index = 0;
-    const TIMEOUT = 180000;
+    const TIMEOUT = 18000;
     global.fetch = fetch;
     const {getEnvVar} = nodeRequire('./app/env');
     var config = {
@@ -25,11 +25,14 @@
     function startShowImage() {
         if (images.length == 0)
             return;
-        const url = images[index].urls.regular;
+        const url = images[index].urls.regular;          
+        document.body.style.backgroundImage = `url(${url})`;
+        $(".unsplash-user img").attr("src", images[index].user.profile_image.medium);
+        $(".unsplash-user span").text(`${images[index].user.name}`)
+        $(".unsplash-user span").css('color', images[index].color)
+        setTimeout(startShowImage, TIMEOUT);
         index ++;
         if (index > images.length)
-            index = 0;            
-        document.body.style.backgroundImage = `url(${url})`;
-        setTimeout(startShowImage, TIMEOUT);
+            index = 0;  
     }
 })();
