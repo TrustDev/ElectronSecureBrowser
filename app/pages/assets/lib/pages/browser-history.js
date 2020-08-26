@@ -62,7 +62,12 @@
         for( i = 0; i < history.length; i ++) {
             let item = history[i];
             let url = item.url.replace(/\/$/, '');
-            let iconUrl = favicons[url] ? favicons[url] : 'https://app.lagatos.com/favicon.ico';
+            let iconUrl = 'https://app.lagatos.com/favicon.ico';
+            if (favicons[url])
+                iconUrl = favicons[url];
+            else if(favicons[item.url])
+                iconUrl = favicons[item.url];
+            
             let timestamp = new Date(item.timestamp);
             if (groupDate == null || !isInDay(timestamp, groupDate))
             {
