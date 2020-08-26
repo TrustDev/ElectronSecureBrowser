@@ -76,8 +76,9 @@
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Discord</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Linktree</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-theme">Dark Mode/Light Mode</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Toggle unsplash random background</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Toggle Off Unsplash</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Your Account(redirects to web application)</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Make Default Browser</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;">Version 2.0.0</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" id="btn-signout">Sign Out</a></li>
         </ul>
