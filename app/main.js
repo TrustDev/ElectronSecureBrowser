@@ -68,6 +68,7 @@ async function onready () {
     .slice(2)
     .filter((arg) => arg.includes('/'))
     .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
+  
   if (urls.length) urls.map(createWindow)
   else {
     const opened = await loadFromHistory()
@@ -89,9 +90,4 @@ ipcMain.on('clearbrowserhistory', async(event, data) => {
   const res = await history.clear();
   console.log("requesting delete browser history", data);
   event.sender.send("emptybrowserhistory");
-})
-
-ipcMain.on('exitApp', async(event, data) => {
-  alert(0);
-  app.quit()
 })

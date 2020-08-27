@@ -218,8 +218,6 @@ class OmniBox extends HTMLElement {
     const searchID = Date.now()
     this.lastSearch = searchID
 
-    this.clearOptions()
-
     if (!query) {
       return
     }
@@ -245,12 +243,18 @@ class OmniBox extends HTMLElement {
 
     finalItems.push(...results
       .map(({ title, url }) => this.makeNavItem(url, `${title} - ${url}`)))
-
+    let htmlStr = '';
     for (const item of finalItems) {
-      this.options.appendChild(item)
+      htmlStr += item.outerHTML;
     }
-
+    this.options.innerHTML = htmlStr;
     this.getSelected().setAttribute('data-selected', 'selected')
+    // add click event listener for button
+    $(this.options).on('click', '.omni-box-button', (e) => {
+      let url = $(e.currentTarget).attr("data-url");
+      this.clearOptions()
+      this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
+    })
   }
 
   makeNavItem (url, text) {

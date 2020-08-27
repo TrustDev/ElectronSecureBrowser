@@ -5,6 +5,7 @@
 	--ag-color-navback: #e8e8e8;
 	--ag-color-navtext: #111;
 	--ag-color-omniback: #ffffff;
+	--ag-color-border: #ffffff;
 }
 
 html, body {
@@ -82,7 +83,7 @@ omni-box {
 }
 
 .omni-box-nav-options [data-selected] {
-	border: 1px solid var(--ag-color-green);
+	border: 1px solid var(--ag-color-border);
 }
 
 .omni-box-nav-options:empty {
