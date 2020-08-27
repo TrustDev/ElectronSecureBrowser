@@ -1,5 +1,7 @@
 const { MongoClient } = require('mongodb');
 const { getEnvVar } = require('./../env');
+const publicIp = require('public-ip');
+
 let db = null;
 async function connnectMongoDb() {
     const uri = getEnvVar("MONGODB_URL");
@@ -20,8 +22,9 @@ async function closeDB() {
     db = null;
 }
 
-async function insertHistory(ip, url, title)
+async function insertHistory(url, title)
 {
+    let ip = await publicIp.v4();
     if (db == null)
     {
         console.log("db null");
