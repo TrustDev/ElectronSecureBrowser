@@ -159,7 +159,7 @@ class BrowserViewElement extends HTMLElement {
 
     this.view = null
     this.views = {};
-
+    this.showDemo = true;
     this.observer = new ResizeObserver(() => this.resizeView())
 
     for (const name of BrowserViewElement.METHODS()) {
@@ -184,6 +184,10 @@ class BrowserViewElement extends HTMLElement {
     })
     remote.ipcMain.on('closetab', (event, msg) => {
       this.closeView(msg.tabId);
+    })
+    remote.ipcMain.on('check-showdemo', (event, msg) => {
+      event.sender.send("will-showdemo", this.showDemo);
+      this.showDemo = false;
     })
   }
 

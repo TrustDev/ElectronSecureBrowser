@@ -6,7 +6,12 @@
     ipcRenderer.on('signin', () => {
         showSignedInAlert();
     })
-
+    ipcRenderer.on('will-showdemo', (event, show) => {
+      if (show == true)
+        insertDemoVideo();
+    })
+    ipcRenderer.send('check-showdemo', true)
+    
     function insertDemoVideo() {
       let demoVideo = `
             <div class="video-wrapper">    
@@ -41,6 +46,5 @@
         $(alertTag).insertAfter($("#earn-hint"));
     }
     $(document).ready(function() {      
-      insertDemoVideo();
     })
   })();
