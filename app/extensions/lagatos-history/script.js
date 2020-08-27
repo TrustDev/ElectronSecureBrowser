@@ -92,7 +92,6 @@ async function main () {
     await delay(TAB_CHECK_DELAY)
 
     const tab = await getTab(tabId)
-    console.log(tab);
     const { url, title } = tab
 
     const { host, protocol, pathname } = new URL(url)

@@ -101,6 +101,7 @@
             ipcRenderer.send('getbrowserhistory', { keyword: keyword});
         })
         $("#btn-DelCookies").click(() => {
+            ipcRenderer.send('cleareCookies', true);
 
         })
         $("#btn-DelHistory").click(() => {            

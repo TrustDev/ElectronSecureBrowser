@@ -89,6 +89,9 @@ remote.ipcMain.on('changeTheme', (event, enable) => {
 remote.ipcMain.on('opennewtab', (event, data) => {
   search.addNewTab(data.url);
 })
+remote.ipcMain.on('cleareCookies', (event, data) => {
+  webview.cleareCookies();
+})
 
 const pageTitle = $('title')
 

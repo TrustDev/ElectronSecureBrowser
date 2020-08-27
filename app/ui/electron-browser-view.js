@@ -301,6 +301,13 @@ class BrowserViewElement extends HTMLElement {
     }}));
   }
 
+  async cleareCookies () {
+    for (const id in this.views) {
+      const childView = this.views[id];
+      childView.webContents.session.clearStorageData({storage: ["cookies"]});
+    }
+  }
+  
   disconnectedCallback () {
     this.observer.unobserve(this)
     this.view.destroy()
