@@ -199,11 +199,11 @@ class BrowserViewElement extends HTMLElement {
   }
 
   switchView (id) {
-    const {ipcRenderer} = window.nodeRequire != undefined ? nodeRequire('electron').ipcRenderer : require('electron').ipcRenderer;
     const remote = window.nodeRequire != undefined ? nodeRequire('electron').remote : require('electron').remote
     const currentWindow = remote.getCurrentWindow()
     if (id == -1) {
       this.view = null;
+      remote.app.exit();
     }
     else
       this.view = this.views[id];
@@ -307,7 +307,7 @@ class BrowserViewElement extends HTMLElement {
       childView.webContents.session.clearStorageData({storage: ["cookies"]});
     }
   }
-  
+
   disconnectedCallback () {
     this.observer.unobserve(this)
     this.view.destroy()

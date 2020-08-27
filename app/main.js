@@ -90,3 +90,8 @@ ipcMain.on('clearbrowserhistory', async(event, data) => {
   console.log("requesting delete browser history", data);
   event.sender.send("emptybrowserhistory");
 })
+
+ipcMain.on('exitApp', async(event, data) => {
+  alert(0);
+  app.quit()
+})
