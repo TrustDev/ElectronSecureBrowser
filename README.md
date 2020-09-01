@@ -1,4 +1,4 @@
-# Lagatos Browser 
+# Electron Secure Web Browser 
 
 - Clone the repo
 - `npm install`
